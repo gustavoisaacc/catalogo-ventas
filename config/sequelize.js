@@ -1,11 +1,16 @@
-const configDB = {
-  env: process.env.NODE_ENV,
-  port: process.env.PORT,
-  dbName: process.env.DB_NAME,
-  dbUser: process.env.DB_USER,
-  dbPassword: process.env.DB_PASSWORD,
-  dbHost: process.env.DB_HOST,
-  dbPort: process.env.DB_PORT,
-};
+const { Sequelize } = require("sequelize");
+const { configDB } = require("./config");
+const { setupModels } = require("../db/models");
 
-module.exports = { configDB };
+const USER = encodeURIComponent(configDB.dbUser);
+const PASSWORD = encodeURIComponent(configDB.dbPassword);
+const URL = `postgres://${USER}:${PASSWORD}@${configDB.dbHost}:${configDB.dbPort}/${configDB.dbName}`;
+
+const sequelize = new Sequelize(URL, {
+  dialect: "postgres",
+  logging: true, // Set to console.log to see the raw SQL queries
+});
+
+setupModels(sequelize);
+
+module.exports = { sequelize };
