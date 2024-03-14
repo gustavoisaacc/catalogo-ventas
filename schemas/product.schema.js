@@ -8,10 +8,10 @@ const description = Joi.string().max(500);
 const image = Joi.string().uri();
 
 const createProductSchema = Joi.object({
-  name: name.require(),
-  price: price.require(),
-  categoryId: categoryId.require(),
-  description: description.require(),
+  name: name.required(),
+  price: price.required(),
+  categoryId: categoryId.required(),
+  description: description.required(),
   image: image,
 });
 
@@ -24,7 +24,7 @@ const updateProductSchema = Joi.object({
 });
 
 const getProductSchema = Joi.object({
-  id: id.require(),
+  id: id.required(),
 });
 
 module.exports = { createProductSchema, updateProductSchema, getProductSchema };

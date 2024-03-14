@@ -4,6 +4,10 @@ const dotenv = require("dotenv");
 const { routeProcut } = require("./routers/product.routes");
 const { routeUser } = require("./routers/user.routes");
 const { routeCategory } = require("./routers/category.routes");
+const {
+  boomErrorHandler,
+  errorHandler,
+} = require("./middleware/validateInput");
 
 app.use(express.json());
 dotenv.config();
@@ -11,6 +15,9 @@ dotenv.config();
 app.use("/api/v1/products", routeProcut);
 app.use("/api/v1/users", routeUser);
 app.use("/api/v1/categories", routeCategory);
+
+app.use(errorHandler);
+app.use(boomErrorHandler);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {

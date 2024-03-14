@@ -9,7 +9,7 @@ routeProcut.get("/", Products.getAllProducts);
 routeProcut.post(
   "/",
   validateError(createProductSchema, "body"),
-  Products.createProduct
+  Products.create
 );
 
 module.exports = { routeProcut };
