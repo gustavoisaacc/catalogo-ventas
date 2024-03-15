@@ -18,6 +18,35 @@ class Products {
       return res.status(400).json({ message: error.message });
     }
   }
+  static async getOne(req, res) {
+    try {
+      const id = req.params.id;
+      const product = await Product.findOne({ id });
+      return res.status(200).json(product);
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  }
+
+  static async update(req, res) {
+    try {
+      const { id } = req.params;
+      const data = req.body;
+      const product = await Product.update({ id, data });
+      return res.status(200).json(product);
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  }
+  static async delete(req, res) {
+    try {
+      const { id } = req.params;
+      const product = await Product.delete({ id });
+      return res.status(200).json(product);
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  }
 }
 
 module.exports = { Products };
