@@ -2,14 +2,22 @@ const { Sequelize } = require("sequelize");
 const { configDB } = require("./config");
 const { setupModels } = require("../db/models");
 
-const USER = encodeURIComponent(configDB.dbUser);
-const PASSWORD = encodeURIComponent(configDB.dbPassword);
-const URL = `postgres://${USER}:${PASSWORD}@${configDB.dbHost}:${configDB.dbPort}/${configDB.dbName}`;
+let URL;
 
-const sequelize = new Sequelize(URL, {
+if (configDB.isProduction) {
+  URL = configDB.dbUrl;
+} else {
+  const USER = encodeURIComponent(configDB.dbUser);
+  const PASSWORD = encodeURIComponent(configDB.dbPassword);
+  URL = `postgres://${USER}:${PASSWORD}@${configDB.dbHost}:${configDB.dbPort}/${configDB.dbName}`;
+}
+
+const opts = {
   dialect: "postgres",
-  logging: true, // Set to console.log to see the raw SQL queries
-});
+  logging: configDB.isProduction ? false : true,
+};
+
+const sequelize = new Sequelize(URL, opts);
 
 setupModels(sequelize);
 
