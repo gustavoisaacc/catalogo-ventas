@@ -1,7 +1,7 @@
 const { config } = require("dotenv");
 config();
 const configDB = {
-  env: process.env.NODE_ENV,
+  env: process.env.NODE_ENV || "dev",
   isProduction: process.env.NODE_ENV === "production",
   port: process.env.PORT,
   dbName: process.env.PG_DATABASE,
