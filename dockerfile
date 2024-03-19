@@ -1,9 +1,5 @@
 FROM node:20.3 AS build
 
-RUN mkdir -p /usr/src/app
-
-WORKDIR /usr/src/app
-
 ARG NODE_ENV
 ARG DATABASE_URL
 
