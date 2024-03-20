@@ -11,7 +11,7 @@ const {
 
 app.use(express.json());
 dotenv.config();
-
+app.get("/", (req, res) => res.send("welcome my app!"));
 app.use("/api/v1/products", routeProcut);
 app.use("/api/v1/users", routeUser);
 app.use("/api/v1/categories", routeCategory);
